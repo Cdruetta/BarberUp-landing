@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BarberUp · Agenda, caja y clientes para tu barbería</title>
+<meta name="description" content="BarberUp es una app web para barberías y peluquerías: agenda de turnos, caja y libreta de clientes. Tus datos quedan en tu equipo. Prueba gratis por 4 días, sin registro. Licencia por dispositivo: $120.000.">
+<meta name="theme-color" content="#1b1815">
+<meta property="og:type" content="website">
+<meta property="og:title" content="BarberUp · Agenda, caja y clientes para tu barbería">
+<meta property="og:description" content="Ordená turnos, cobros y clientes sin nube ni cuentas. Prueba gratis por 4 días.">
+<meta property="og:url" content="https://barberup-gc.vercel.app/">
+<meta property="og:image" content="assets/agenda.webp">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%231b1815'/%3E%3Cpath d='M6 22L22 6M10 27L27 10M3 17L17 3' stroke='%239d522b' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: { fondo:'#ece3d5', tarjeta:'#fbf7ee', tinta:'#211d18', suave:'#6e6457', cobre:'#9d522b', cobreFuerte:'#814020', oscuro:'#1b1815', borde:'#d8cdbd' },
+    fontFamily: { serif:['"Noto Serif"','Georgia','serif'], sans:['Roboto','system-ui','sans-serif'] }
+  } }
+}
+</script>
+<style>
+  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+  body { font-family: Roboto, system-ui, sans-serif; }
+  .poste { height: 6px; background: repeating-linear-gradient(-45deg,#b3342b 0 12px,#fbf7ee 12px 24px,#2a5aa8 24px 36px,#fbf7ee 36px 48px); }
+  .hero-in { animation: entra .7s ease-out both; }
+  @keyframes entra { from { opacity:0; transform: translateY(10px) } to { opacity:1; transform:none } }
+  details > summary { list-style: none; cursor: pointer; }
+  details > summary::-webkit-details-marker { display: none; }
+  details[open] .mas { transform: rotate(45deg); }
+  .mas { transition: transform .2s; }
+  :focus-visible { outline: 3px solid #9d522b; outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) { .hero-in { animation: none } html { scroll-behavior: auto } * { transition: none !important } }
+</style>
+</head>
+<body class="bg-fondo text-tinta antialiased">
+
+<!-- 1. Header -->
+<header class="sticky top-0 z-50 bg-oscuro text-[#f3ead9]">
+  <div class="poste"></div>
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
+    <a href="#inicio" class="font-serif text-xl font-bold">BarberUp</a>
+    <nav aria-label="Principal" class="flex items-center gap-5 text-sm">
+      <a href="#caracteristicas" class="hidden hover:text-white sm:inline">Características</a>
+      <a href="#privacidad" class="hidden hover:text-white sm:inline">Privacidad</a>
+      <a href="#faq" class="hidden hover:text-white sm:inline">Preguntas</a>
+      <a href="https://barberup-gc.vercel.app/" class="rounded-lg bg-cobre px-4 py-2 font-medium text-white transition hover:bg-cobreFuerte">Probar gratis</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+
+<!-- 2. Hero -->
+<section class="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-16 pt-12 md:grid-cols-2 md:pt-20">
+  <div class="hero-in">
+    <h1 class="font-serif text-4xl font-bold leading-tight sm:text-5xl">Agenda, caja y clientes para tu barbería</h1>
+    <p class="mt-5 max-w-xl text-lg leading-relaxed text-suave">Dejá la libreta y las planillas. BarberUp ordena tus turnos, tus cobros y tu lista de clientes en una app simple, rápida y privada. Todo se guarda en tu propio dispositivo.</p>
+    <div class="mt-8 flex flex-wrap items-center gap-4">
+      <a href="https://barberup-gc.vercel.app/" class="rounded-lg bg-cobre px-6 py-3 text-base font-medium text-white shadow-sm transition hover:bg-cobreFuerte">Probar BarberUp gratis</a>
+      <a href="#como-empezar" class="text-sm font-medium text-cobreFuerte underline underline-offset-4 hover:text-cobre">Cómo empezar</a>
+    </div>
+    <div class="mt-6 inline-flex flex-wrap items-center gap-x-5 gap-y-1 rounded-xl border-2 border-cobre bg-tarjeta px-5 py-3">
+      <span class="font-serif text-4xl font-bold text-cobreFuerte">$120.000</span>
+      <span class="text-sm leading-snug text-suave"><strong class="font-medium text-tinta">Prueba gratis por 4 días</strong>, sin registro.<br>Luego se activa con licencia por dispositivo.</span>
+    </div>
+  </div>
+  <div class="hero-in flex justify-center" style="animation-delay:.15s">
+    <div class="relative">
+      <div class="w-56 rounded-[2rem] border-[6px] border-oscuro bg-oscuro shadow-xl sm:w-64">
+        <img src="assets/agenda.webp" width="480" height="875" alt="Pantalla de agenda del día en BarberUp, con grilla de horarios y botón Nuevo turno" class="rounded-[1.5rem]" fetchpriority="high">
+      </div>
+      <div class="absolute -bottom-6 -left-16 hidden w-36 rounded-[1.5rem] border-[5px] border-oscuro bg-oscuro shadow-xl sm:block">
+        <img src="assets/caja.webp" width="480" height="875" alt="Pantalla de caja con total cobrado y desglose por medio de pago" class="rounded-[1.1rem]" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Problema vs Solución -->
+<section class="border-y border-borde bg-tarjeta">
+  <div class="mx-auto max-w-6xl px-5 py-16">
+    <h2 class="max-w-2xl font-serif text-3xl font-bold">De la libreta a una agenda que no se olvida de nada</h2>
+    <div class="mt-10 grid gap-6 md:grid-cols-2">
+      <div class="rounded-xl border border-borde bg-fondo p-6">
+        <h3 class="font-serif text-xl font-semibold">Hoy, con libreta y planillas</h3>
+        <ul class="mt-4 space-y-3 text-suave">
+          <li>Turnos pisados y clientes que llegan a la misma hora.</li>
+          <li>No sabés cuánto cobraste hasta que sumás todo a mano.</li>
+          <li>El teléfono de un cliente está en una hoja que no encontrás.</li>
+          <li>Un olvido o una hoja perdida y se pierde el registro.</li>
+        </ul>
+      </div>
+      <div class="rounded-xl border-2 border-cobre bg-tarjeta p-6">
+        <h3 class="font-serif text-xl font-semibold">Con BarberUp</h3>
+        <ul class="mt-4 space-y-3">
+          <li>Agenda por día con horarios libres a un toque.</li>
+          <li>Caja del día y del mes con totales por medio de pago.</li>
+          <li>Cada cliente con su teléfono, visitas y notas.</li>
+          <li>Respaldo completo cuando quieras, en tus manos.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Características -->
+<section id="caracteristicas" class="mx-auto max-w-6xl px-5 py-16">
+  <h2 class="font-serif text-3xl font-bold">Lo justo para trabajar mejor</h2>
+  <p class="mt-3 max-w-2xl text-suave">Sin funciones de más. Cada pantalla resuelve algo que hacés todos los días en el local.</p>
+  <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    <article class="rounded-xl border border-borde bg-tarjeta p-6">
+      <svg class="h-7 w-7 text-cobre" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+      <h3 class="mt-4 font-serif text-lg font-semibold">Agenda inteligente</h3>
+      <p class="mt-2 text-suave">Grilla por día, horarios, profesionales y estados del turno.</p>
+    </article>
+    <article class="rounded-xl border border-borde bg-tarjeta p-6">
+      <svg class="h-7 w-7 text-cobre" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18M16 15h2"/></svg>
+      <h3 class="mt-4 font-serif text-lg font-semibold">Caja integrada</h3>
+      <p class="mt-2 text-suave">Totales del día y del mes, medios de pago y ranking de servicios.</p>
+    </article>
+    <article class="rounded-xl border border-borde bg-tarjeta p-6">
+      <svg class="h-7 w-7 text-cobre" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M16 5a3.5 3.5 0 010 6.5M18 14.5c2 .7 3.5 2.5 3.5 5.5"/></svg>
+      <h3 class="mt-4 font-serif text-lg font-semibold">Clientes</h3>
+      <p class="mt-2 text-suave">Ficha con teléfono, historial de visitas y notas.</p>
+    </article>
+    <article class="rounded-xl border border-borde bg-tarjeta p-6">
+      <svg class="h-7 w-7 text-cobre" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
+      <h3 class="mt-4 font-serif text-lg font-semibold">PWA instalable</h3>
+      <p class="mt-2 text-suave">Instalala como app en el celular o la PC. Funciona sin internet.</p>
+    </article>
+    <article class="rounded-xl border border-borde bg-tarjeta p-6">
+      <svg class="h-7 w-7 text-cobre" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>
+      <h3 class="mt-4 font-serif text-lg font-semibold">Privacidad total</h3>
+      <p class="mt-2 text-suave">Los datos viven en tu dispositivo. No hay base de datos externa.</p>
+    </article>
+    <article class="rounded-xl border border-borde bg-tarjeta p-6">
+      <svg class="h-7 w-7 text-cobre" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+      <h3 class="mt-4 font-serif text-lg font-semibold">Respaldos</h3>
+      <p class="mt-2 text-suave">Exportá un respaldo completo en JSON e importalo para restaurar. CSV para informes en Excel o Google Hojas.</p>
+    </article>
+  </div>
+  <div class="mt-12 flex flex-wrap justify-center gap-6">
+    <img src="assets/clientes.webp" width="480" height="875" alt="Pantalla de clientes con buscador por nombre o teléfono" class="w-44 rounded-2xl border-4 border-oscuro shadow-lg sm:w-52" loading="lazy">
+    <img src="assets/caja.webp" width="480" height="875" alt="Pantalla de caja con cierre del día" class="w-44 rounded-2xl border-4 border-oscuro shadow-lg sm:w-52" loading="lazy">
+  </div>
+</section>
+
+<!-- 5. Privacidad primero -->
+<section id="privacidad" class="bg-oscuro text-[#f3ead9]">
+  <div class="poste"></div>
+  <div class="mx-auto grid max-w-6xl items-center gap-10 px-5 py-16 md:grid-cols-2">
+    <div>
+      <h2 class="font-serif text-3xl font-bold">Tus datos quedan en tu equipo</h2>
+      <p class="mt-4 text-lg leading-relaxed text-[#cfc4b2]">Sin cuentas, sin servidores y sin nube. Los nombres y teléfonos de tus clientes se guardan en el dispositivo donde usás BarberUp y no se envían a ningún lado.</p>
+      <ul class="mt-6 space-y-2 text-[#cfc4b2]">
+        <li>No hay registro ni inicio de sesión.</li>
+        <li>No hay base de datos externa.</li>
+        <li>Vos decidís cuándo hacer un respaldo y dónde guardarlo.</li>
+      </ul>
+      <p class="mt-6 text-sm text-[#a99d8a]">Como los datos son locales, no hay recuperación remota: hacé respaldos periódicos.</p>
+    </div>
+    <div class="flex justify-center">
+      <img src="assets/privacidad.webp" width="480" height="875" alt="Aviso de Privacidad y uso de datos dentro de BarberUp" class="w-56 rounded-2xl border-4 border-[#3a342d] shadow-xl sm:w-64" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- 6. Cómo empezar -->
+<section id="como-empezar" class="mx-auto max-w-4xl px-5 py-16">
+  <h2 class="font-serif text-3xl font-bold">Cómo empezar</h2>
+  <ol class="mt-10 space-y-5">
+    <li class="flex gap-5 rounded-xl border border-borde bg-tarjeta p-6">
+      <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-cobre font-serif font-bold text-white">1</span>
+      <div><h3 class="font-serif text-lg font-semibold">Abrí la app</h3><p class="mt-1 text-suave">Entrá desde el navegador del celular o la PC. No hace falta registrarse.</p></div>
+    </li>
+    <li class="flex gap-5 rounded-xl border border-borde bg-tarjeta p-6">
+      <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-cobre font-serif font-bold text-white">2</span>
+      <div><h3 class="font-serif text-lg font-semibold">Usá los 4 días de prueba</h3><p class="mt-1 text-suave">Cargá tus servicios, profesionales y turnos y fijate si te sirve en el día a día.</p></div>
+    </li>
+    <li class="flex gap-5 rounded-xl border border-borde bg-tarjeta p-6">
+      <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-cobre font-serif font-bold text-white">3</span>
+      <div><h3 class="font-serif text-lg font-semibold">Activá con tu ID y tu código de licencia</h3><p class="mt-1 text-suave">La app te muestra el ID de tu dispositivo. Enviáselo a tu proveedor y recibís un código único para activarla.</p></div>
+    </li>
+  </ol>
+  <p class="mt-6 text-suave">Prueba gratis por 4 días. Luego se activa con licencia por dispositivo: <strong class="font-serif text-2xl font-bold text-cobreFuerte">$120.000</strong></p>
+</section>
+
+<!-- 7. FAQ -->
+<section id="faq" class="border-t border-borde bg-tarjeta">
+  <div class="mx-auto max-w-3xl px-5 py-16">
+    <h2 class="font-serif text-3xl font-bold">Preguntas frecuentes</h2>
+    <div class="mt-8 divide-y divide-borde border-y border-borde">
+      <details class="group py-4">
+        <summary class="flex items-center justify-between gap-4 font-medium">¿Necesito internet?<span class="mas text-2xl text-cobre" aria-hidden="true">+</span></summary>
+        <p class="mt-3 text-suave">Para abrir la app por primera vez sí. Una vez instalada como PWA, funciona sin conexión.</p>
+      </details>
+      <details class="group py-4">
+        <summary class="flex items-center justify-between gap-4 font-medium">¿Se pierden los datos?<span class="mas text-2xl text-cobre" aria-hidden="true">+</span></summary>
+        <p class="mt-3 text-suave">Los datos se guardan en tu dispositivo y no hay copia en la nube. Si se borran los datos del navegador o perdés el equipo, no se pueden recuperar de forma remota. Por eso conviene exportar un respaldo seguido.</p>
+      </details>
+      <details class="group py-4">
+        <summary class="flex items-center justify-between gap-4 font-medium">¿Funciona en celular?<span class="mas text-2xl text-cobre" aria-hidden="true">+</span></summary>
+        <p class="mt-3 text-suave">Sí. Está pensada primero para el celular y también se usa en tablet y PC. Podés instalarla como app desde el navegador.</p>
+      </details>
+      <details class="group py-4">
+        <summary class="flex items-center justify-between gap-4 font-medium">¿Cómo se activa?<span class="mas text-2xl text-cobre" aria-hidden="true">+</span></summary>
+        <p class="mt-3 text-suave">Pasados los 4 días de prueba, la app muestra el ID de tu dispositivo. Se lo enviás a tu proveedor, te da un código de licencia y lo ingresás en la pantalla de activación. La licencia es por dispositivo.</p>
+      </details>
+      <details class="group py-4">
+        <summary class="flex items-center justify-between gap-4 font-medium">¿Puedo hacer respaldo?<span class="mas text-2xl text-cobre" aria-hidden="true">+</span></summary>
+        <p class="mt-3 text-suave">Sí. Exportás un respaldo completo en JSON y lo importás para restaurar. También podés exportar CSV para abrir tus informes en Excel o Google Hojas.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- 8. CTA final -->
+<section class="mx-auto max-w-4xl px-5 py-20 text-center">
+  <h2 class="font-serif text-3xl font-bold sm:text-4xl">Ordená tu barbería hoy</h2>
+  <p class="mx-auto mt-4 max-w-xl text-suave">Abrila, cargá tus primeros turnos y fijate cómo se siente trabajar sin libreta.</p>
+  <a href="https://barberup-gc.vercel.app/" class="mt-8 inline-block rounded-lg bg-cobre px-8 py-4 text-lg font-medium text-white shadow-sm transition hover:bg-cobreFuerte">Probar gratis por 4 días</a>
+  <p class="mt-6 font-serif text-4xl font-bold text-cobreFuerte">$120.000</p>
+  <p class="mt-1 text-sm text-suave">Sin registro. Luego se activa con licencia por dispositivo.</p>
+</section>
+
+</main>
+
+<!-- 9. Footer -->
+<footer class="bg-oscuro text-[#cfc4b2]">
+  <div class="poste"></div>
+  <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-5 py-8 text-sm sm:flex-row">
+    <span class="font-serif text-lg font-bold text-[#f3ead9]">BarberUp</span>
+    <span>Hecho para barberías independientes</span>
+    <a href="https://github.com/Cdruetta/BarberUp" rel="noopener" class="underline underline-offset-4 hover:text-white">Repositorio en GitHub</a>
+  </div>
+</footer>
+
+</body>
+</html>
